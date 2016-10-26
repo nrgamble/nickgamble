@@ -1,0 +1,16 @@
+runtime: php55
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /narcissist
+  static_files: narcissist/index.html
+  upload: narcissist/index.html
+
+# - url: /(.*)
+#   static_files: \1
+#   upload: (.*)

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" ng-app="NarcissistApp">
+<head>
+  <title>Narcissist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css?family=Ruda" rel="stylesheet">
+  <style>
+    * { font-family: 'Ruda', sans-serif; }
+    p { font-size: .8em; }
+    textarea { width: 99%; height: 160px; }
+    button { font-size: 1.2em; margin-right: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>Are you a narcissist?</h1>
+  <p>
+    If you need to use this tool to know whether or not you are a narcissistic writer, you probably are.
+    In which case, you'll probably be interested to know just how narcissistic you are...you fucking narcissist.
+  </p>
+  <p>
+    If you genuinely don't know how narcissistic your writing is and wonder how you may be perceived by your audience, enter any text you've writen for analysis.  The higher the score, the more of a fucking narcissist you are.
+  </p>
+  <!-- <p>
+    Disclaimer: this is not an exact science.  It does not take into account the number of mirror selfies you've taken.
+  </p> -->
+
+  <div class="row" ng-controller="NarcissistCtrl as narc">
+    <!-- Words: {{narc.words}}<br> -->
+    <textarea ng-model="narc.text"></textarea><br>
+    <button ng-click="narc.analyze()">Analyze</button>
+    <b>Narcissism Score: {{narc.score}}/100</b>
+  </div>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script>
+    var NarcissistApp = angular.module('NarcissistApp', []);
+
+    NarcissistApp.controller('NarcissistCtrl', function() {
+      var narc = this;
+
+      narc.score = 0;
+      narc.text  = '';
+      narc.words = 0;
+      narc.nWords = [
+        'i', 'im', 'ill', 'ive', 'id',
+        'me', 'my', 'mine', 'myself'
+      ]
+
+      narc.analyze = function() {
+        if (narc.text.length < 1) {
+          return;
+        }
+
+        console.log(narc.text);
+
+        var text = narc.text;
+        text = text.replace(/\n/g, ' '); // Replace line breaks with spaces
+        text = text.replace(/[^0-9a-z ]/gi, ''); // Remove all non-alphanumerics/spaces
+        text = text.replace(/\s\s+/g, ' '); // Consolidate multiple spaces
+        text = text.toLowerCase(); // Lowercase to match better
+        console.log(text)
+
+        var nWords = 0;
+        var words = text.split(' ');
+        console.log(words)
+
+        angular.forEach(words, function(word) {
+          if (narc.nWords.indexOf(word) != -1) {
+            nWords++;
+          }
+        });
+
+        narc.words = words.length;
+        narc.score = Math.round(nWords / narc.words * 100);
+      };
+
+    });
+  </script>
+</body>
+</html>
