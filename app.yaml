@@ -7,10 +7,34 @@ handlers:
   static_files: index.html
   upload: index.html
 
+- url: /assets
+  static_dir: assets
+
 - url: /narcissist
   static_files: narcissist/index.html
   upload: narcissist/index.html
 
-# - url: /(.*)
+# - url: /ry/borders
+#   static_files: ry/music.html
+#   upload: ry/music.html
+
+# - url: /ry/music
+#   static_dir: ry/music
+
+# - url: /ry/music
+#   static_files: ry/music/index.html
+#   upload: ry/music/index.html
+
+# - url: /ry/music/(.*\.mp3)$
+#   static_files: ry/music/\1
+#   upload: ry/music/.*\.mp3$
+
+# - url: /ry/music/prague\.mp3
+#   static_files: ry/music/prague.mp3
+#   upload: /ry/music/prague.mp3
+
+# - url: /(.*\.(mp3))$
 #   static_files: \1
-#   upload: (.*)
+#   upload: /.*\.(mp3)$
+
+
